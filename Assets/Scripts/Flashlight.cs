@@ -10,21 +10,19 @@ public class Flashlight : MonoBehaviour
     private float startingAngle;
     [SerializeField] float fov = default;
     [SerializeField] float viewDistance = default;
-    private int rayCount;
-    private float angleIncrease;
 
     void Start()
     {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         origin = Vector3.zero;
-        rayCount = 50;
-        angleIncrease = fov / rayCount;
     }
 
     void LateUpdate()
     {
         float angle = startingAngle;
+        int rayCount = 50;
+        float angleIncrease = fov / rayCount;
 
         Vector3[] vertices = new Vector3[rayCount + 1 + 1];
         Vector2[] uv = new Vector2[vertices.Length];
@@ -64,6 +62,7 @@ public class Flashlight : MonoBehaviour
         mesh.vertices = vertices;
         mesh.uv = uv;
         mesh.triangles = triangles;
+        mesh.bounds = new Bounds(origin, Vector3.one * 1000);
     }
 
     Vector3 GetVectorFromAngle(float angle)
@@ -85,10 +84,12 @@ public class Flashlight : MonoBehaviour
     public void SetOrigin(Vector3 origin)
     {
         this.origin = origin;
+        print("origin: " + this.origin);
     }
 
     public void SetAimDirection(Vector3 direction)
     {
         startingAngle = GetAngleFromVector(direction) + fov / 2f;
+        print("angle: " + startingAngle);
     }
 }
