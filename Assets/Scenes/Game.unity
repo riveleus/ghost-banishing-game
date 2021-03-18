@@ -2203,7 +2203,7 @@ GameObject:
   - component: {fileID: 980698289}
   - component: {fileID: 980698288}
   m_Layer: 8
-  m_Name: Flashlight
+  m_Name: Field Of View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2279,7 +2279,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 980698286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1556dce2867780e7b7020ab095bfe91, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f0d0c138c98a5df7b054d2ba480a3b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layerMask:
@@ -3535,13 +3535,29 @@ GameObject:
   m_Component:
   - component: {fileID: 6787582692036685523}
   - component: {fileID: 6787582692036685522}
+  - component: {fileID: 6787582692036685521}
   m_Layer: 0
-  m_Name: Flashlight Object
+  m_Name: Flashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6787582692036685521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6787582692036685520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1556dce2867780e7b7020ab095bfe91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fieldOfView: {fileID: 980698290}
+  batteryMaxAmount: 10
+  batteryCount: 5
 --- !u!212 &6787582692036685522
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3844,7 +3860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 785704cbe412e427486c67bf356fd65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashlight: {fileID: 980698290}
+  flashlight: {fileID: 6787582692036685521}
   moveSpeed: 5
   interactKey: 32
   interactionColliders:
@@ -3852,7 +3868,6 @@ MonoBehaviour:
   - {fileID: 6787582693953229014}
   - {fileID: 6787582693219645434}
   - {fileID: 6787582692283987536}
-  flashlightObject: {fileID: 6787582692036685523}
 --- !u!61 &6787582693780646727
 BoxCollider2D:
   m_ObjectHideFlags: 0

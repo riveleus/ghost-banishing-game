@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] Flashlight flashlight = default;
-    private Camera cam;
     private Rigidbody2D rb;
     private Vector2 movement;
     [SerializeField] float moveSpeed = default;
@@ -13,12 +12,10 @@ public class Player : MonoBehaviour
     [SerializeField] KeyCode interactKey = default;
     // up = 0, right = 1, down = 2, left = 3
     [SerializeField] BoxCollider2D[] interactionColliders;
-    [SerializeField] Transform flashlightObject;
     private bool isInteractingWithObject;
 
     void Start()
     {
-        cam = Camera.main;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -35,32 +32,17 @@ public class Player : MonoBehaviour
             ChangeMovementDirection();
         }
 
-        SyncFlashlightWithPlayerMovement();
+        flashlight.HandleAim(transform.position);
 
         if (Input.GetKeyDown(interactKey))
         {
             GetInteract();
         }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            flashlight.Enable();
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-            flashlight.Disable();
     }
 
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.deltaTime);
-    }
-
-    void SyncFlashlightWithPlayerMovement()
-    {
-        Vector3 aimDir = (cam.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
-        flashlight.SetAimDirection(aimDir);
-        flashlight.SetOrigin(transform.position);
-
-        float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
-        flashlightObject.eulerAngles = new Vector3(0, 0, angle);
     }
 
     void GetInteract()
@@ -112,6 +94,12 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         target = other.gameObject;
+
+        if(other.tag == "Battery")
+        {
+            flashlight.batteryCount++;
+            Destroy(other.gameObject);
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
