@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
-
+    private bool _isPaused;
+    public bool isPaused { get { return _isPaused; } }
 
     private void Awake()
     {
@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
             UIManager.instance.pauseScreen.SetActive(false);
 
             Time.timeScale = 1f;
+            _isPaused = false;
         }
         else
         {
@@ -35,8 +36,7 @@ public class GameManager : MonoBehaviour
             UIManager.instance.CloseOptions();
 
             Time.timeScale = 0f;
+            _isPaused = true;
         }
     }
-
-
 }

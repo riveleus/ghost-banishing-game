@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     public string mainMenu;
 
     public Slider musicVolSlider, sfxVolSlider;
+    public GameObject popupDialogBox;
+    public Text popupTextBox;
 
     private void Awake()
     {
@@ -79,5 +81,16 @@ public class UIManager : MonoBehaviour
     public void SetSFXLevel()
     {
         AudioManager.instance.SetSFXLevel();
+    }
+
+    public void ShowPopupDialog(string message)
+    {
+        popupTextBox.text = message;
+        popupDialogBox.SetActive(true);
+    }
+
+    public void HidePopupDialog()
+    {
+        popupDialogBox.SetActive(false);
     }
 }
