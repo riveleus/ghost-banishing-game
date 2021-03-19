@@ -37,19 +37,15 @@ public class BatteryUI : MonoBehaviour
         switch(image){
             case 0:
                 batteryImage[0].SetActive(true);
-                Debug.Log("Image"+0);
                 break;
             case 1:
                 batteryImage[1].SetActive(true);
-                Debug.Log("Image"+1);
                 break;
             case 2:
                 batteryImage[2].SetActive(true);
-                Debug.Log("Image"+2);
                 break;
             case 3:
                 batteryImage[3].SetActive(true);
-                Debug.Log("Image"+3);
                 break;
         }
     }
