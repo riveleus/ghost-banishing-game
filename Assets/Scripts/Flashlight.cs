@@ -9,6 +9,8 @@ public class Flashlight : MonoBehaviour
     [SerializeField] float batteryMaxAmount;
     private float currentAmount;
     public int batteryCount;
+    public Vector3 aimDir;
+    [SerializeField] Transform enemy;
 
     void Start()
     {
@@ -42,7 +44,7 @@ public class Flashlight : MonoBehaviour
 
     public void HandleAim(Vector3 playerPosition)
     {
-        Vector3 aimDir = (cam.ScreenToWorldPoint(Input.mousePosition) - playerPosition).normalized;
+        aimDir = (cam.ScreenToWorldPoint(Input.mousePosition) - playerPosition).normalized;
         fieldOfView.SetAimDirection(aimDir);
         fieldOfView.SetOrigin(playerPosition);
 

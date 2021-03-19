@@ -7,16 +7,21 @@ public class Player : MonoBehaviour
     [SerializeField] Flashlight flashlight = default;
     private Rigidbody2D rb;
     private Vector2 movement;
-    [SerializeField] float moveSpeed = default;
+    [SerializeField] float moveSpeed = 0;
+    [SerializeField] float fearMeter = 0;
     private GameObject target = default;
     [SerializeField] KeyCode interactKey = default;
+    private bool isInteractingWithObject;
+    private Animator anim;
+    private bool isFacingRight;
+    [SerializeField] Transform gfx;
     // up = 0, right = 1, down = 2, left = 3
     [SerializeField] BoxCollider2D[] interactionColliders;
-    private bool isInteractingWithObject;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -27,10 +32,7 @@ public class Player : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        if (movement != Vector2.zero)
-        {
-            ChangeMovementDirection();
-        }
+        HandleMovementAnimation();
 
         flashlight.HandleAim(transform.position);
 
@@ -58,7 +60,25 @@ public class Player : MonoBehaviour
         }
     }
 
-    void ChangeMovementDirection()
+    void HandleMovementAnimation()
+    {
+        if (movement != Vector2.zero)
+        {
+            ChangeInteractionCollider();
+            anim.SetBool("Walking", true);
+        }
+        else
+        {
+            anim.SetBool("Walking", false);
+        }
+
+        if (movement.x < 0 && isFacingRight || movement.x > 0 && !isFacingRight)
+        {
+            Flip();
+        }
+    }
+
+    void ChangeInteractionCollider()
     {
         if (movement.y > 0.1f)
         {
@@ -91,11 +111,30 @@ public class Player : MonoBehaviour
         }
     }
 
+    void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        gfx.Rotate(0, 180, 0);
+    }
+
+    public void GetDamage()
+    {
+        if (fearMeter > 0)
+        {
+            fearMeter -= Time.deltaTime;
+            print("get damage");
+        }
+        else
+        {
+            
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         target = other.gameObject;
 
-        if(other.tag == "Battery")
+        if (other.tag == "Battery")
         {
             flashlight.batteryCount++;
             Destroy(other.gameObject);
@@ -106,7 +145,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject == target)
         {
-            if(isInteractingWithObject)
+            if (isInteractingWithObject)
                 target.GetComponent<Interactable>().StopInteract();
 
             isInteractingWithObject = false;
