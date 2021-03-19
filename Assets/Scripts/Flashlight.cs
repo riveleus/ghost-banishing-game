@@ -6,8 +6,8 @@ public class Flashlight : MonoBehaviour
 {
     [SerializeField] FieldOfView fieldOfView = default;
     private Camera cam;
-    [SerializeField] float batteryMaxAmount;
-    private float currentAmount;
+    [SerializeField] public float batteryMaxAmount;
+    public float currentAmount;
     public int batteryCount;
     public Vector3 aimDir;
     [SerializeField] Transform enemy;
