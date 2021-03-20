@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Flashlight : MonoBehaviour
 {
+    public static Flashlight instance;
+
     [SerializeField] FieldOfView fieldOfView = default;
     private Camera cam;
     [SerializeField] public float batteryMaxAmount;
@@ -11,6 +13,11 @@ public class Flashlight : MonoBehaviour
     public int batteryCount;
     public Vector3 aimDir;
     [SerializeField] Transform enemy;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
