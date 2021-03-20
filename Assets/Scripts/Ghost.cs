@@ -38,8 +38,10 @@ public class Ghost : MonoBehaviour
             Flip();
         }
 
-        if(isAttacking)
+        if (isAttacking)
+        {
             player.GetDamage();
+        }
     }
 
     void FixedUpdate()
@@ -48,7 +50,7 @@ public class Ghost : MonoBehaviour
         {
             rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
         }
-        else if(escaping)
+        else if (escaping)
         {
             rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
         }

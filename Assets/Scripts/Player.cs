@@ -122,11 +122,12 @@ public class Player : MonoBehaviour
         if (fearMeter > 0)
         {
             fearMeter -= Time.deltaTime;
-            print("get damage");
-        }
-        else
-        {
-            
+            AnimationHandler.instance.GetDamage();
+
+            if(fearMeter <= 0)
+            {
+                // game over
+            }
         }
     }
 
