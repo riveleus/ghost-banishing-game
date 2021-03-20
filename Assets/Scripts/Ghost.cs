@@ -78,9 +78,9 @@ public class Ghost : MonoBehaviour
                 isBinded = true;
 
                 this.transform.SetParent(flashlight);
-                isFacingRight = !isFacingRight;
+                // isFacingRight = !isFacingRight;
                 transform.localPosition = new Vector3(6, 0, 0);
-                transform.localEulerAngles = new Vector3(0, 0, -flashlight.rotation.eulerAngles.z);
+                // transform.localEulerAngles = new Vector3(0, 0, -flashlight.rotation.eulerAngles.z);
                 healthBar += Time.deltaTime;
             }
         }
