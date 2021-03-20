@@ -135,11 +135,11 @@ public class Player : MonoBehaviour
     {
         target = other.gameObject;
 
-        if (other.tag == "Battery")
+        /*if (other.tag == "Battery")
         {
             flashlight.batteryCount++;
             Destroy(other.gameObject);
-        }
+        }*/
     }
 
     void OnTriggerExit2D(Collider2D other)
