@@ -19,10 +19,12 @@ public class Ghost : MonoBehaviour
     public float heartbeatCounter = 10;
     public bool isBinded = false;
     public Transform flashlight;
+    public bool ghostMove;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        ghostMove = false;
     }
 
     void Update()
@@ -41,8 +43,7 @@ public class Ghost : MonoBehaviour
             }
             else
             {
-                movement = (player.transform.position - transform.position).normalized;
-                moveSpeed = normalSpeed;
+                Movement();
             }
 
             if (movement.x < 0 && isFacingRight || movement.x > 0 && !isFacingRight)
@@ -124,7 +125,12 @@ public class Ghost : MonoBehaviour
         }
         
     }
-
+    public void Movement(){
+        if(ghostMove){
+            movement = (player.transform.position - transform.position).normalized;
+            moveSpeed = normalSpeed;
+        }
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player" && other.isTrigger)
