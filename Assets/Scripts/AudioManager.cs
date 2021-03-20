@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //PlayMusic(levelMusicToPlay);
+        PlayMusic(levelMusicToPlay);
     }
 
     public void PlayMusic(int musicToPlay)
