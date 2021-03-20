@@ -24,7 +24,7 @@ public class GhostDetector : MonoBehaviour
         {
             if (ableToDetect)
             {
-                ghost.Escape(true);
+                ghost.RunAway(true);
             }
 
             if(!exposeTimeStarted)
@@ -54,7 +54,7 @@ public class GhostDetector : MonoBehaviour
 
         if (other.tag == "Ghost")
         {
-            ghost.Escape(false);
+            ghost.RunAway(false);
         }
     }
 }

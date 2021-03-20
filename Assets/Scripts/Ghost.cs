@@ -11,7 +11,7 @@ public class Ghost : MonoBehaviour
     [SerializeField] float escapeSpeed;
     [SerializeField] float normalSpeed;
     private bool isFacingRight;
-    private bool escaping;
+    private bool isRunningAway;
     [SerializeField] Transform[] randomPositionBetweenPlayer;
     private bool isAttacking;
 
@@ -27,9 +27,9 @@ public class Ghost : MonoBehaviour
 
     void Update()
     {
-        if(healthBar>0 && !isBinded)
+        if (healthBar > 0 && !isBinded)
         {
-            if (escaping)
+            if (isRunningAway)
             {
                 if (!AudioManager.instance.sfx[1].isPlaying)
                 {
@@ -52,11 +52,11 @@ public class Ghost : MonoBehaviour
 
             if (isAttacking)
             {
-                if(!AudioManager.instance.sfx[0].isPlaying)
+                if (!AudioManager.instance.sfx[0].isPlaying)
                 {
                     AudioManager.instance.PlaySFX(0);
                 }
-                
+
                 player.GetDamage();
             }
             else if (!isAttacking && AudioManager.instance.sfx[0].isPlaying)
@@ -66,26 +66,15 @@ public class Ghost : MonoBehaviour
         }
         else
         {
-            if(healthBar >= 10)
+            if (healthBar >= 10)
             {
-                isBinded = false;
-                this.transform.SetParent(null);
-                transform.localEulerAngles = new Vector3(0, 0, 0);
-                Disappear();
+                EscapeFromBind();
             }
             else
             {
-                isBinded = true;
-
-                this.transform.SetParent(flashlight);
-                // isFacingRight = !isFacingRight;
-                transform.localPosition = new Vector3(6, 0, 0);
-                // transform.localEulerAngles = new Vector3(0, 0, -flashlight.rotation.eulerAngles.z);
-                healthBar += Time.deltaTime;
+                BindUp();
             }
         }
-
-        
     }
 
     void FixedUpdate()
@@ -96,17 +85,17 @@ public class Ghost : MonoBehaviour
             {
                 rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
             }
-            else if (escaping)
+            else if (isRunningAway)
             {
                 rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
             }
         }
-        
+
     }
 
-    public void Escape(bool state)
+    public void RunAway(bool state)
     {
-        escaping = state;
+        isRunningAway = state;
     }
 
     void Flip()
@@ -122,7 +111,27 @@ public class Ghost : MonoBehaviour
             int index = Random.Range(0, randomPositionBetweenPlayer.Length);
             transform.position = randomPositionBetweenPlayer[index].position;
         }
-        
+
+    }
+
+    void BindUp()
+    {
+        isBinded = true;
+        this.transform.SetParent(flashlight);
+        // isFacingRight = !isFacingRight;
+        transform.localPosition = new Vector3(6, 0, 0);
+        // transform.localEulerAngles = new Vector3(0, 0, -flashlight.rotation.eulerAngles.z);
+        healthBar += Time.deltaTime;
+    }
+
+    void EscapeFromBind()
+    {
+        isBinded = false;
+        this.transform.SetParent(null);
+        Vector3 rot = transform.localEulerAngles;
+        rot.z = 0;
+        transform.localEulerAngles = rot;
+        Disappear();
     }
 
     void OnTriggerEnter2D(Collider2D other)
