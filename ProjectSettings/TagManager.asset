@@ -8,6 +8,11 @@ TagManager:
   - Object
   - Ghost Detector
   - Ghost
+  - Laser
+  - Enemy
+  - Book
+  - Diary
+  - Photo
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private bool isInteractingWithObject;
     private Animator anim;
     private bool isFacingRight;
+    public bool canMove;
     [SerializeField] Transform gfx;
     // up = 0, right = 1, down = 2, left = 3
     [SerializeField] BoxCollider2D[] interactionColliders;
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        canMove = false;
     }
 
     void Update()
@@ -29,17 +31,14 @@ public class Player : MonoBehaviour
         if (GameManager.instance.isPaused)
             return;
 
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        Movement();
 
         HandleMovementAnimation();
 
-        flashlight.HandleAim(transform.position);
-
-        if (Input.GetKeyDown(interactKey))
+        /*if (Input.GetKeyDown(interactKey))
         {
             GetInteract();
-        }
+        }*/
     }
 
     void FixedUpdate()
@@ -47,7 +46,16 @@ public class Player : MonoBehaviour
         rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.deltaTime);
     }
 
-    void GetInteract()
+    public void Movement(){
+        if(canMove){
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
+
+            flashlight.HandleAim(transform.position);
+        }
+    }
+
+    /*void GetInteract()
     {
         if (target == null)
             return;
@@ -58,7 +66,7 @@ public class Player : MonoBehaviour
             obj.GetInteract();
             isInteractingWithObject = true;
         }
-    }
+    }*/
 
     void HandleMovementAnimation()
     {
@@ -131,7 +139,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    /*void OnTriggerEnter2D(Collider2D other)
     {
         target = other.gameObject;
     }
@@ -140,11 +148,8 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject == target)
         {
-            if (isInteractingWithObject)
-                target.GetComponent<Interactable>().StopInteract();
-
             isInteractingWithObject = false;
             target = null;
         }
-    }
+    }*/
 }

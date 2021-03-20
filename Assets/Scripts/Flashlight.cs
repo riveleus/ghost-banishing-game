@@ -12,7 +12,6 @@ public class Flashlight : MonoBehaviour
     private float _currentAmount;
     public float currentAmount { get { return _currentAmount; } }
     public int batteryCount;
-
     private void Awake()
     {
         instance = this;
