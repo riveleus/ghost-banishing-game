@@ -121,6 +121,7 @@ public class Player : MonoBehaviour
     {
         if (fearMeter > 0)
         {
+            AudioManager.instance.PlaySFX(0);
             fearMeter -= Time.deltaTime;
             print("get damage");
         }
