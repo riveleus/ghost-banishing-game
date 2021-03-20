@@ -9,10 +9,9 @@ public class Flashlight : MonoBehaviour
     [SerializeField] FieldOfView fieldOfView = default;
     private Camera cam;
     [SerializeField] public float batteryMaxAmount;
-    public float currentAmount;
+    private float _currentAmount;
+    public float currentAmount { get { return _currentAmount; } }
     public int batteryCount;
-    public Vector3 aimDir;
-    [SerializeField] Transform enemy;
 
     private void Awake()
     {
@@ -22,12 +21,12 @@ public class Flashlight : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        currentAmount = batteryMaxAmount;
+        _currentAmount = batteryMaxAmount;
     }
 
     void Update()
     {
-        if (currentAmount <= 0)
+        if (_currentAmount <= 0)
         {
             if(batteryCount > 0)
             {
@@ -39,19 +38,19 @@ public class Flashlight : MonoBehaviour
         }
         else
         {
-            currentAmount -= Time.deltaTime;
+            _currentAmount -= Time.deltaTime;
         }
     }
 
     public void RefillBattery()
     {
-        currentAmount = batteryMaxAmount;
+        _currentAmount = batteryMaxAmount;
         batteryCount--;
     }
 
     public void HandleAim(Vector3 playerPosition)
     {
-        aimDir = (cam.ScreenToWorldPoint(Input.mousePosition) - playerPosition).normalized;
+        Vector2 aimDir = (cam.ScreenToWorldPoint(Input.mousePosition) - playerPosition).normalized;
         fieldOfView.SetAimDirection(aimDir);
         fieldOfView.SetOrigin(playerPosition);
 
