@@ -1,31 +1,13 @@
 fileFormatVersion: 2
-guid: 9f3af647a94cb74afb5ab8b55e671e92
+guid: ce04036f143d8f949a2d3ce6b18cda0a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5159834290419067318
-    second: Sanity_Barr_0
+      213: -7455507152490519353
+    second: Sanity_Bar_0
   - first:
-      213: 9126690014328645365
-    second: Sanity_Barr_1
-  - first:
-      213: -7239963547583750490
-    second: Sanity_Barr_2
-  - first:
-      213: -4534352674798996461
-    second: Sanity_Barr_3
-  - first:
-      213: 4679444196412544085
-    second: Sanity_Barr_4
-  - first:
-      213: 8868969787345604902
-    second: Sanity_Barr_5
-  - first:
-      213: 1417580473197248545
-    second: Sanity_Barr_6
-  - first:
-      213: 884010946693812697
-    second: Sanity_Barr_7
+      213: 5533191797414868552
+    second: Sanity_Bar_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -108,31 +90,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -147,43 +105,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sanity_Barr_0
+      name: Sanity_Bar_0
       rect:
         serializedVersion: 2
-        x: 36
-        y: 452
-        width: 1901
-        height: 322
+        x: 6
+        y: 428
+        width: 2988
+        height: 422
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6b9ee4cf2f96b9740800000000000000
-      internalID: 5159834290419067318
+      spriteID: 7c42b6beeb7b88890800000000000000
+      internalID: -7455507152490519353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sanity_Barr_4
+      name: Sanity_Bar_1
       rect:
         serializedVersion: 2
-        x: 36
-        y: 96
-        width: 1901
-        height: 322
+        x: 0
+        y: 32
+        width: 2954
+        height: 390
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 554de6134b9b0f040800000000000000
-      internalID: 4679444196412544085
+      spriteID: 846b407af98d9cc40800000000000000
+      internalID: 5533191797414868552
       vertices: []
       indices: 
       edges: []
