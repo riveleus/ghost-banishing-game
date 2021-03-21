@@ -10,6 +10,7 @@ public class Goal : MonoBehaviour
     {
         if(ghostReference.isBinded == true && collision.tag == "Ghost")
         {
+            GameManager.instance.Win();
             Debug.Log("You Win");
         }
     }

@@ -103,8 +103,15 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Time.timeScale = 0f;
-        isGameRunning = true;
+        isGameRunning = false;
         UIManager.instance.gameOverScreen.SetActive(true);
+    }
+
+    public void Win()
+    {
+        Time.timeScale = 0f;
+        isGameRunning = false;
+        UIManager.instance.winScreen.SetActive(true);
     }
 
     public IEnumerator RespawnCo()
