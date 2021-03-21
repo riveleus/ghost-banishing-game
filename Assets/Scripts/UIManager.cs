@@ -18,8 +18,7 @@ public class UIManager : MonoBehaviour
     public string mainMenu;
 
     public Slider musicVolSlider, sfxVolSlider;
-    public GameObject popupDialogBox;
-    public Text popupTextBox;
+    [SerializeField] Image sanityBar;
 
     private void Awake()
     {
@@ -83,14 +82,13 @@ public class UIManager : MonoBehaviour
         AudioManager.instance.SetSFXLevel();
     }
 
-    public void ShowPopupDialog(string message)
+    public void InitializeSanityBar()
     {
-        popupTextBox.text = message;
-        popupDialogBox.SetActive(true);
+        sanityBar.fillAmount = 1;
     }
 
-    public void HidePopupDialog()
+    public void UpdateSanityBar(float value)
     {
-        popupDialogBox.SetActive(false);
+        sanityBar.fillAmount = value;
     }
 }

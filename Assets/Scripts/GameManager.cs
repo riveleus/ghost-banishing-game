@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] Ghost ghost;
     public GameObject battery;
+    public GameObject sanityBar;
     public Flowchart firstDialog;
     public Flowchart flashlightDialog;
     public DialogManager dialog;
@@ -28,30 +29,34 @@ public class GameManager : MonoBehaviour
             PauseUnpause();
         }
 
-        if(!firstDialog.GetBooleanVariable("firstStory")){
+        if (!firstDialog.GetBooleanVariable("firstStory"))
+        {
             battery.SetActive(true);
             flashlightDialog.gameObject.SetActive(true);
-            if(!flashlightDialog.GetBooleanVariable("flashlightDialog")){
+            if (!flashlightDialog.GetBooleanVariable("flashlightDialog"))
+            {
                 player.canMove = true;
                 ghost.ghostMove = true;
+                sanityBar.SetActive(true);
             }
         }
 
-        if(!dialog.bookDialog.GetBooleanVariable("bookDialog"))
+        if (!dialog.bookDialog.GetBooleanVariable("bookDialog"))
             dialog.bookDialog.gameObject.SetActive(false);
-        
-        if(!dialog.diaryDialog.GetBooleanVariable("diaryDialog"))
-            dialog.diaryDialog.gameObject.SetActive(false);
-        
-        if(!dialog.photoDialog.GetBooleanVariable("photoDialog"))
-            dialog.photoDialog.gameObject.SetActive(false);
-        
 
-        if(!dialog.bookDialog.gameObject.activeInHierarchy||!dialog.diaryDialog.gameObject.activeInHierarchy||
-            !dialog.photoDialog.gameObject.activeInHierarchy){
-                player.canMove = true;
-                ghost.ghostMove = true;
-            }
+        if (!dialog.diaryDialog.GetBooleanVariable("diaryDialog"))
+            dialog.diaryDialog.gameObject.SetActive(false);
+
+        if (!dialog.photoDialog.GetBooleanVariable("photoDialog"))
+            dialog.photoDialog.gameObject.SetActive(false);
+
+
+        if (!dialog.bookDialog.gameObject.activeInHierarchy || !dialog.diaryDialog.gameObject.activeInHierarchy ||
+            !dialog.photoDialog.gameObject.activeInHierarchy)
+        {
+            player.canMove = true;
+            ghost.ghostMove = true;
+        }
     }
 
     public void PauseUnpause()

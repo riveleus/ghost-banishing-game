@@ -9,8 +9,7 @@ public class Flashlight : MonoBehaviour
     [SerializeField] FieldOfView fieldOfView = default;
     private Camera cam;
     [SerializeField] public float batteryMaxAmount;
-    private float _currentAmount;
-    public float currentAmount { get { return _currentAmount; } }
+    public float currentAmount;
     public int batteryCount;
     private void Awake()
     {
@@ -20,12 +19,11 @@ public class Flashlight : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        _currentAmount = batteryMaxAmount;
     }
 
     void Update()
     {
-        if (_currentAmount <= 0)
+        if (currentAmount <= 0)
         {
             if(batteryCount > 0)
             {
@@ -37,13 +35,13 @@ public class Flashlight : MonoBehaviour
         }
         else
         {
-            _currentAmount -= Time.deltaTime;
+            currentAmount -= Time.deltaTime;
         }
     }
 
     public void RefillBattery()
     {
-        _currentAmount = batteryMaxAmount;
+        currentAmount = batteryMaxAmount;
         batteryCount--;
     }
 

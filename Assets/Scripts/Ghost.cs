@@ -8,7 +8,7 @@ public class Ghost : MonoBehaviour
     private Vector2 movement;
     [SerializeField] Player player;
     private float moveSpeed;
-    [SerializeField] float escapeSpeed;
+    [SerializeField] float runAwaySpeed;
     [SerializeField] float normalSpeed;
     private bool isFacingRight;
     private bool isRunningAway;
@@ -39,7 +39,7 @@ public class Ghost : MonoBehaviour
                 }
                 healthBar -= Time.deltaTime;
                 movement = (transform.position - player.transform.position).normalized;
-                moveSpeed = escapeSpeed;
+                moveSpeed = runAwaySpeed;
             }
             else
             {

@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     [SerializeField] float moveSpeed = 0;
-    [SerializeField] float fearMeter = 0;
+    [SerializeField] float sanity = 0;
     private GameObject target = default;
     [SerializeField] KeyCode interactKey = default;
     private bool isInteractingWithObject;
@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         canMove = false;
+
+        UIManager.instance.InitializeSanityBar();
     }
 
     void Update()
@@ -127,12 +129,14 @@ public class Player : MonoBehaviour
 
     public void GetDamage()
     {
-        if (fearMeter > 0)
+        if (sanity > 0)
         {
-            fearMeter -= Time.deltaTime;
+            sanity -= Time.deltaTime;
+            float s = sanity / 100;
+            UIManager.instance.UpdateSanityBar(s);
             AnimationHandler.instance.GetDamage();
 
-            if(fearMeter <= 0)
+            if(sanity <= 0)
             {
                 // game over
             }
