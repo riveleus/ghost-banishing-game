@@ -129,7 +129,7 @@ public class Player : MonoBehaviour
     {
         if (sanity > 0)
         {
-            sanity -= Time.deltaTime;
+            sanity -= Time.deltaTime * 3;
             float s = sanity / 100;
             UIManager.instance.UpdateSanityBar(s);
             AnimationHandler.instance.GetDamage();

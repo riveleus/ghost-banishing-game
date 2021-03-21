@@ -119,7 +119,6 @@ public class GameManager : MonoBehaviour
 
         player.transform.position = respawnPosition;
 
-        Time.timeScale = 1f;
         isGameRunning = false;
 
         player.gameObject.SetActive(true);
