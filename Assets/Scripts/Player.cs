@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     private bool isInteractingWithObject;
     private Animator anim;
     private bool isFacingRight;
-    public bool canMove;
     [SerializeField] Transform gfx;
     // up = 0, right = 1, down = 2, left = 3
     [SerializeField] BoxCollider2D[] interactionColliders;
@@ -23,14 +22,13 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        canMove = false;
 
         UIManager.instance.InitializeSanityBar();
     }
 
     void Update()
     {
-        if (GameManager.instance.isPaused)
+        if (!GameManager.instance.isGameRunning)
             return;
 
         Movement();
@@ -48,13 +46,13 @@ public class Player : MonoBehaviour
         rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.deltaTime);
     }
 
-    public void Movement(){
-        if(canMove){
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
+    public void Movement()
+    {
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
 
-            flashlight.HandleAim(transform.position);
-        }
+        flashlight.HandleAim(transform.position);
+
     }
 
     /*void GetInteract()
@@ -74,7 +72,7 @@ public class Player : MonoBehaviour
     {
         if (movement != Vector2.zero)
         {
-            ChangeInteractionCollider();
+            // ChangeInteractionCollider();
             anim.SetBool("Walking", true);
         }
         else
@@ -88,38 +86,38 @@ public class Player : MonoBehaviour
         }
     }
 
-    void ChangeInteractionCollider()
-    {
-        if (movement.y > 0.1f)
-        {
-            interactionColliders[0].enabled = true;
-            interactionColliders[1].enabled = false;
-            interactionColliders[2].enabled = false;
-            interactionColliders[3].enabled = false;
-        }
-        else if (movement.y < -0.1f)
-        {
-            interactionColliders[0].enabled = false;
-            interactionColliders[1].enabled = false;
-            interactionColliders[2].enabled = true;
-            interactionColliders[3].enabled = false;
-        }
+    // void ChangeInteractionCollider()
+    // {
+    //     if (movement.y > 0.1f)
+    //     {
+    //         interactionColliders[0].enabled = true;
+    //         interactionColliders[1].enabled = false;
+    //         interactionColliders[2].enabled = false;
+    //         interactionColliders[3].enabled = false;
+    //     }
+    //     else if (movement.y < -0.1f)
+    //     {
+    //         interactionColliders[0].enabled = false;
+    //         interactionColliders[1].enabled = false;
+    //         interactionColliders[2].enabled = true;
+    //         interactionColliders[3].enabled = false;
+    //     }
 
-        if (movement.x > 0.1f)
-        {
-            interactionColliders[0].enabled = false;
-            interactionColliders[1].enabled = true;
-            interactionColliders[2].enabled = false;
-            interactionColliders[3].enabled = false;
-        }
-        else if (movement.x < -0.1f)
-        {
-            interactionColliders[0].enabled = false;
-            interactionColliders[1].enabled = false;
-            interactionColliders[2].enabled = false;
-            interactionColliders[3].enabled = true;
-        }
-    }
+    //     if (movement.x > 0.1f)
+    //     {
+    //         interactionColliders[0].enabled = false;
+    //         interactionColliders[1].enabled = true;
+    //         interactionColliders[2].enabled = false;
+    //         interactionColliders[3].enabled = false;
+    //     }
+    //     else if (movement.x < -0.1f)
+    //     {
+    //         interactionColliders[0].enabled = false;
+    //         interactionColliders[1].enabled = false;
+    //         interactionColliders[2].enabled = false;
+    //         interactionColliders[3].enabled = true;
+    //     }
+    // }
 
     void Flip()
     {
@@ -136,7 +134,7 @@ public class Player : MonoBehaviour
             UIManager.instance.UpdateSanityBar(s);
             AnimationHandler.instance.GetDamage();
 
-            if(sanity <= 0)
+            if (sanity <= 0)
             {
                 // game over
             }

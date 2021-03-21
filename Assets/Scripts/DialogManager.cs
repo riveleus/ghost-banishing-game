@@ -8,39 +8,31 @@ public class DialogManager : MonoBehaviour
     public Player player;
     public Ghost ghost;
 
-    [SerializeField] public Flowchart bookDialog;
-    [SerializeField] public Flowchart diaryDialog;
-    [SerializeField] public Flowchart photoDialog;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Flowchart startDialog;
+    public Flowchart senterDialog;
+    public Flowchart bookDialog;
+    public Flowchart diaryDialog;
+    public Flowchart photoDialog;
 
-    // Update is called once per frame
-    void Update()
+    public void GetDialog(string gameTag)
     {
-        
-    }
-
-    public void GetDialog(string gameTag){
-        if(gameTag == "Book"){
+        if (gameTag == "Book")
+        {
             bookDialog.gameObject.SetActive(true);
             bookDialog.SetBooleanVariable("bookDialog", true);
-            player.canMove = false;
-            ghost.ghostMove = false;
         }
-        if(gameTag == "Diary"){
+        if (gameTag == "Diary")
+        {
             diaryDialog.gameObject.SetActive(true);
             diaryDialog.SetBooleanVariable("diaryDialog", true);
-            player.canMove = false;
-            ghost.ghostMove = false;
         }
-        if(gameTag == "Photo"){
+        if (gameTag == "Photo")
+        {
             photoDialog.gameObject.SetActive(true);
             photoDialog.SetBooleanVariable("photoDialog", true);
-            player.canMove = false;
-            ghost.ghostMove = false;
         }
+
+        GameManager.instance.isGameRunning = false;
+        // GameManager.instance.isInteracting = true;
     }
 }

@@ -19,16 +19,17 @@ public class Ghost : MonoBehaviour
     public float heartbeatCounter = 10;
     public bool isBinded = false;
     public Transform flashlight;
-    public bool ghostMove;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        ghostMove = false;
     }
 
     void Update()
     {
+        if (!GameManager.instance.isGameRunning)
+            return;
+
         if (healthBar > 0 && !isBinded)
         {
             if (isRunningAway)
@@ -80,6 +81,9 @@ public class Ghost : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!GameManager.instance.isGameRunning)
+            return;
+
         if (!isBinded)
         {
             if (Vector2.Distance(transform.position, player.transform.position) > 5.3f)
@@ -134,11 +138,10 @@ public class Ghost : MonoBehaviour
         transform.localEulerAngles = rot;
         Disappear();
     }
-    public void Movement(){
-        if(ghostMove){
-            movement = (player.transform.position - transform.position).normalized;
-            moveSpeed = normalSpeed;
-        }
+    public void Movement()
+    {
+        movement = (player.transform.position - transform.position).normalized;
+        moveSpeed = normalSpeed;
     }
     void OnTriggerEnter2D(Collider2D other)
     {
