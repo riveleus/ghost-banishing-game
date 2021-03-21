@@ -95,6 +95,7 @@ public class UIManager : MonoBehaviour
     public void TryAgain()
     {
         gameOverScreen.SetActive(false);
+        Time.timeScale = 1f;
         StartCoroutine(GameManager.instance.RespawnCo());
     }
 

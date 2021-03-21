@@ -102,6 +102,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        Time.timeScale = 0f;
+        isGameRunning = true;
         UIManager.instance.gameOverScreen.SetActive(true);
     }
 
@@ -116,6 +118,9 @@ public class GameManager : MonoBehaviour
         UIManager.instance.fadeFromBlack = true;
 
         player.transform.position = respawnPosition;
+
+        Time.timeScale = 1f;
+        isGameRunning = false;
 
         player.gameObject.SetActive(true);
     }
