@@ -10,14 +10,6 @@ public class GhostDetector : MonoBehaviour
     private float exposeTime;
     private bool exposeTimeStarted;
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        // if (other.tag == "Object")
-        // {
-        //     ableToDetect = false;
-        // }
-    }
-
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.tag == "Ghost")
@@ -47,11 +39,6 @@ public class GhostDetector : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        // if (other.tag == "Object")
-        // {
-        //     ableToDetect = true;
-        // }
-
         if (other.tag == "Ghost")
         {
             ghost.RunAway(false);

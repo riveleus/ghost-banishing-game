@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
 
     public Slider musicVolSlider, sfxVolSlider;
     [SerializeField] Image sanityBar;
+    [SerializeField] Slider candleFillBar;
 
     private void Awake()
     {
@@ -92,11 +93,27 @@ public class UIManager : MonoBehaviour
         sanityBar.fillAmount = value;
     }
 
+    public void InitializeCandleBar(int maxAmount)
+    {
+        candleFillBar.maxValue = maxAmount;
+        candleFillBar.value = 0;
+        candleFillBar.gameObject.SetActive(true);
+    }
+
+    public void HideCandleBar()
+    {
+        candleFillBar.gameObject.SetActive(false);
+    }
+
+    public void UpdateCandleBarAmount(float amount)
+    {
+        candleFillBar.value = amount;
+    }
+
     public void TryAgain()
     {
         gameOverScreen.SetActive(false);
         Time.timeScale = 1f;
         StartCoroutine(GameManager.instance.RespawnCo());
     }
-
 }

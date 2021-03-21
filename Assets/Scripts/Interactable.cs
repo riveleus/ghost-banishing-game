@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    private DialogManager dialog;
+    protected DialogManager dialog;
     private bool touched;
 
-    private void Start() {
+    protected virtual void Start() {
         dialog = FindObjectOfType<DialogManager>();    
     }
 
-    private void Update() {
+    protected virtual void Update() {
         if(touched == true && Input.GetKeyDown(KeyCode.Space)){
             GetInteract();
         }
     }
 
-    public void GetInteract()
+    public virtual void GetInteract()
     {
         dialog.GetDialog(this.tag);
     }

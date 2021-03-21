@@ -22,6 +22,9 @@ public class FieldOfView : MonoBehaviour
 
     void LateUpdate()
     {
+        if(!GameManager.instance.isStopped())
+            return;
+
         float angle = startingAngle;
         int rayCount = 50;
         float angleIncrease = fov / rayCount;

@@ -9,14 +9,12 @@ public class Player : MonoBehaviour
     private Vector2 movement;
     [SerializeField] float moveSpeed = 0;
     [SerializeField] float sanity = 0;
-    private GameObject target = default;
-    [SerializeField] KeyCode interactKey = default;
-    private bool isInteractingWithObject;
     private Animator anim;
     private bool isFacingRight;
+    private bool canMove = true;
     [SerializeField] Transform gfx;
-    // up = 0, right = 1, down = 2, left = 3
-    [SerializeField] BoxCollider2D[] interactionColliders;
+    public bool haveSafetyMatches;
+    private Candle currentCandle;
 
     void Start()
     {
@@ -28,51 +26,33 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.instance.isGameRunning)
+        if (!GameManager.instance.isStopped())
             return;
 
-        Movement();
+        if (canMove)
+            MovementInput();
 
         HandleMovementAnimation();
 
-        /*if (Input.GetKeyDown(interactKey))
-        {
-            GetInteract();
-        }*/
+        flashlight.HandleAim(transform.position);
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.deltaTime);
+        if (canMove)
+            rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.deltaTime);
     }
 
-    public void Movement()
+    public void MovementInput()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-
-        flashlight.HandleAim(transform.position);
-
     }
-
-    /*void GetInteract()
-    {
-        if (target == null)
-            return;
-
-        Interactable obj = target.GetComponent<Interactable>();
-        if (obj != null)
-        {
-            obj.GetInteract();
-            isInteractingWithObject = true;
-        }
-    }*/
 
     void HandleMovementAnimation()
     {
         if (movement != Vector2.zero)
         {
-            // ChangeInteractionCollider();
             anim.SetBool("Walking", true);
         }
         else
@@ -86,39 +66,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    // void ChangeInteractionCollider()
-    // {
-    //     if (movement.y > 0.1f)
-    //     {
-    //         interactionColliders[0].enabled = true;
-    //         interactionColliders[1].enabled = false;
-    //         interactionColliders[2].enabled = false;
-    //         interactionColliders[3].enabled = false;
-    //     }
-    //     else if (movement.y < -0.1f)
-    //     {
-    //         interactionColliders[0].enabled = false;
-    //         interactionColliders[1].enabled = false;
-    //         interactionColliders[2].enabled = true;
-    //         interactionColliders[3].enabled = false;
-    //     }
-
-    //     if (movement.x > 0.1f)
-    //     {
-    //         interactionColliders[0].enabled = false;
-    //         interactionColliders[1].enabled = true;
-    //         interactionColliders[2].enabled = false;
-    //         interactionColliders[3].enabled = false;
-    //     }
-    //     else if (movement.x < -0.1f)
-    //     {
-    //         interactionColliders[0].enabled = false;
-    //         interactionColliders[1].enabled = false;
-    //         interactionColliders[2].enabled = false;
-    //         interactionColliders[3].enabled = true;
-    //     }
-    // }
-
     void Flip()
     {
         isFacingRight = !isFacingRight;
@@ -129,10 +76,11 @@ public class Player : MonoBehaviour
     {
         if (sanity > 0)
         {
-            sanity -= Time.deltaTime * 3;
+            sanity -= Time.deltaTime * 10;
             float s = sanity / 100;
             UIManager.instance.UpdateSanityBar(s);
             AnimationHandler.instance.GetDamage();
+            StopRollingCandle();
 
             if (sanity <= 0)
             {
@@ -142,17 +90,35 @@ public class Player : MonoBehaviour
         }
     }
 
-    /*void OnTriggerEnter2D(Collider2D other)
+    public void RollCandle(Candle candle)
     {
-        target = other.gameObject;
+        currentCandle = candle;
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    public void StopMovement()
     {
-        if (other.gameObject == target)
+        canMove = false;
+        rb.velocity = Vector2.zero;
+        anim.SetBool("Walking", false);
+    }
+
+    public void AllowMovement()
+    {
+        canMove = true;
+    }
+
+    public void RemoveCurrentCandle()
+    {
+        currentCandle = null;
+    }
+
+    void StopRollingCandle()
+    {
+        if (currentCandle != null)
         {
-            isInteractingWithObject = false;
-            target = null;
+            currentCandle.StopRolling();
+            currentCandle = null;
+            AllowMovement();
         }
-    }*/
+    }
 }

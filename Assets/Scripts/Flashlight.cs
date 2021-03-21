@@ -23,7 +23,7 @@ public class Flashlight : MonoBehaviour
 
     void Update()
     {
-        if(!GameManager.instance.isGameRunning)
+        if(!GameManager.instance.isStopped())
             return;
 
         if (currentAmount <= 0)

@@ -27,7 +27,7 @@ public class Ghost : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.instance.isGameRunning)
+        if(!GameManager.instance.isStopped())
             return;
 
         if (healthBar > 0 && !isBinded)
@@ -81,12 +81,12 @@ public class Ghost : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!GameManager.instance.isGameRunning)
+        if(!GameManager.instance.isStopped())
             return;
 
         if (!isBinded)
         {
-            if (Vector2.Distance(transform.position, player.transform.position) > 5.3f)
+            if (Vector2.Distance(transform.position, player.transform.position) > 4.7f)
             {
                 rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
             }

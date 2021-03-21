@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool isGameRunning;
+    private bool isPaused;
     [SerializeField] Player player;
     [SerializeField] Ghost ghost;
     public GameObject battery;
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
     public Flowchart flashlightDialog;
     public DialogManager dialog;
     private bool firstStoryPassed;
-
+    [SerializeField] Candle[] candles;
     private Vector3 respawnPosition;
 
     private void Awake()
@@ -49,36 +50,27 @@ public class GameManager : MonoBehaviour
 
         if (!isGameRunning)
         {
-            if (!DialogIsActive())
+            if (!dialog.DialogIsActive())
             {
                 dialog.bookDialog.gameObject.SetActive(false);
                 dialog.diaryDialog.gameObject.SetActive(false);
                 dialog.photoDialog.gameObject.SetActive(false);
+                dialog.candleDialog.gameObject.SetActive(false);
+                dialog.activeCandleDialog.gameObject.SetActive(false);
                 isGameRunning = true;
             }
         }
-
-        // if (!dialog.bookDialog.gameObject.activeInHierarchy || !dialog.diaryDialog.gameObject.activeInHierarchy ||
-        //     !dialog.photoDialog.gameObject.activeInHierarchy)
-        // {
-        //     isGameRunning = true;
-        // }
     }
 
-    bool DialogIsActive()
+    public bool AllCandleIsActivated()
     {
-        if(dialog.startDialog.GetBooleanVariable("firstStory"))
-            return true;
-        else if(dialog.senterDialog.GetBooleanVariable("flashlightDialog"))
-            return true;
-        else if (dialog.bookDialog.GetBooleanVariable("bookDialog"))
-            return true;
-        else if (dialog.diaryDialog.GetBooleanVariable("diaryDialog"))
-            return true;
-        else if (dialog.photoDialog.GetBooleanVariable("photoDialog"))
-            return true;
+        for(int i = 0; i < candles.Length; i++)
+        {
+            if(!candles[i].isActive)
+                return false;
+        }
 
-        return false;
+        return true;
     }
 
     public void PauseUnpause()
@@ -88,7 +80,7 @@ public class GameManager : MonoBehaviour
             UIManager.instance.pauseScreen.SetActive(false);
 
             Time.timeScale = 1f;
-            isGameRunning = false;
+            isPaused = false;
         }
         else
         {
@@ -96,8 +88,16 @@ public class GameManager : MonoBehaviour
             UIManager.instance.CloseOptions();
 
             Time.timeScale = 0f;
-            isGameRunning = true;
+            isPaused = true;
         }
+    }
+
+    public bool isStopped()
+    {
+        if(!isGameRunning || isPaused)
+            return false;
+
+        return true;
     }
 
     public void GameOver()
