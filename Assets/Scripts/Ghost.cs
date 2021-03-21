@@ -27,7 +27,7 @@ public class Ghost : MonoBehaviour
 
     void Update()
     {
-        if(!GameManager.instance.isStopped())
+        if(GameManager.instance.isStopped())
             return;
 
         if (healthBar > 0 && !isBinded)
@@ -38,9 +38,12 @@ public class Ghost : MonoBehaviour
                 {
                     AudioManager.instance.PlaySFX(1);
                 }
-                healthBar -= Time.deltaTime;
+
                 movement = (transform.position - player.transform.position).normalized;
                 moveSpeed = runAwaySpeed;
+
+                if(GameManager.instance.AllCandleIsActivated())
+                    healthBar -= Time.deltaTime;
             }
             else
             {
@@ -81,7 +84,7 @@ public class Ghost : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(!GameManager.instance.isStopped())
+        if(GameManager.instance.isStopped())
             return;
 
         if (!isBinded)

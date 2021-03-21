@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.instance.isStopped())
+        if (GameManager.instance.isStopped())
             return;
 
         if (canMove)

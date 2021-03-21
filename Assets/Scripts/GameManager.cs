@@ -95,9 +95,9 @@ public class GameManager : MonoBehaviour
     public bool isStopped()
     {
         if(!isGameRunning || isPaused)
-            return false;
+            return true;
 
-        return true;
+        return false;
     }
 
     public void GameOver()

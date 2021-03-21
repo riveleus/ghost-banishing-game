@@ -22,7 +22,7 @@ public class FieldOfView : MonoBehaviour
 
     void LateUpdate()
     {
-        if(!GameManager.instance.isStopped())
+        if(GameManager.instance.isStopped())
             return;
 
         float angle = startingAngle;
