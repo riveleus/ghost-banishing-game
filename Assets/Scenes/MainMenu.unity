@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -638,7 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7be652ae5f24984e9a0365263586404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstLevel: Game
+  introduction: Prelude
   optionScreen: {fileID: 7219641759379714181}
   musicVolSlider: {fileID: 7219641759220592703}
   sfxVolSlider: {fileID: 7219641759095241181}
@@ -1193,7 +1193,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2937725958871350082}
-  - component: {fileID: 2937725958871350083}
   - component: {fileID: 2937725958871350084}
   m_Layer: 0
   m_Name: SystemsManager
@@ -1218,18 +1217,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2937725958871350083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2937725958871350081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06469b81db7a6964fb9d83fff06cee4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2937725958871350084
 MonoBehaviour:
   m_ObjectHideFlags: 0

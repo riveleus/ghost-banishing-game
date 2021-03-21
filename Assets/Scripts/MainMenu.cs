@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 {
     public static MainMenu instance;
 
-    public string firstLevel;
+    public string introduction;
 
     public GameObject optionScreen;
 
@@ -27,7 +27,7 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene(firstLevel);
+        SceneManager.LoadScene(introduction);
     }
 
     public void QuitGame()

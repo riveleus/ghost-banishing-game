@@ -27,17 +27,21 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(int musicToPlay)
     {
-        for (int i = 0; i < music.Length; i++)
+        if (music.Length > 0)
         {
-            music[i].Stop();
-        }
+            for (int i = 0; i < music.Length; i++)
+            {
+                music[i].Stop();
+            }
 
-        music[musicToPlay].Play();
+            music[musicToPlay].Play();
+        }
     }
 
     public void PlaySFX(int sfxToPlay)
     {
-        sfx[sfxToPlay].Play();
+        if(sfx.Length > 0)
+            sfx[sfxToPlay].Play();
     }
 
     public void SetMusicLevel()
