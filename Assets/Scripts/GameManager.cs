@@ -16,9 +16,16 @@ public class GameManager : MonoBehaviour
     public DialogManager dialog;
     private bool firstStoryPassed;
 
+    private Vector3 respawnPosition;
+
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        respawnPosition = player.transform.position;
     }
 
     private void Update()
@@ -91,5 +98,25 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
             isGameRunning = true;
         }
+    }
+
+    public void GameOver()
+    {
+        UIManager.instance.gameOverScreen.SetActive(true);
+    }
+
+    public IEnumerator RespawnCo()
+    {
+        player.gameObject.SetActive(false);
+
+        UIManager.instance.fadeToBlack = true;
+
+        yield return new WaitForSeconds(2f);
+
+        UIManager.instance.fadeFromBlack = true;
+
+        player.transform.position = respawnPosition;
+
+        player.gameObject.SetActive(true);
     }
 }

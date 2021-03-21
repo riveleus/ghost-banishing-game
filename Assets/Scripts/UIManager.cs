@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     public float fadeSpeed = 2f;
     public bool fadeToBlack, fadeFromBlack;
 
-    public GameObject blackScreenObject, pauseScreen, optionsScreen;
+    public GameObject blackScreenObject, pauseScreen, optionsScreen, gameOverScreen;
 
     public string mainMenu;
 
@@ -91,4 +91,11 @@ public class UIManager : MonoBehaviour
     {
         sanityBar.fillAmount = value;
     }
+
+    public void TryAgain()
+    {
+        gameOverScreen.SetActive(false);
+        StartCoroutine(GameManager.instance.RespawnCo());
+    }
+
 }

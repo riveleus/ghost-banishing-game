@@ -136,7 +136,8 @@ public class Player : MonoBehaviour
 
             if (sanity <= 0)
             {
-                // game over
+                sanity = 0;
+                GameManager.instance.GameOver();
             }
         }
     }
