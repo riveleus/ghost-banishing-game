@@ -77,4 +77,11 @@ public class Candle : Interactable
         player.AllowMovement();
         UIManager.instance.HideCandleBar();
     }
+
+    public void TurnOff()
+    {
+        _isActive = false;
+        currentTime = 0;
+        rolling = false;
+    }
 }

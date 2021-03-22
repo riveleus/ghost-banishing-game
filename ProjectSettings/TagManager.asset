@@ -13,6 +13,8 @@ TagManager:
   - Book
   - Diary
   - Photo
+  - Candle
+  - Petunjuk
   layers:
   - Default
   - TransparentFX
@@ -52,6 +54,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 714780089
     locked: 0
   - name: Ghost
     uniqueID: 1339137559

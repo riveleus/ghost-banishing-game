@@ -15,6 +15,7 @@ public class DialogManager : MonoBehaviour
     public Flowchart photoDialog;
     public Flowchart candleDialog;
     public Flowchart activeCandleDialog;
+    public Flowchart petunjukDialog;
 
     public void GetDialog(string gameTag)
     {
@@ -46,17 +47,18 @@ public class DialogManager : MonoBehaviour
             activeCandleDialog.gameObject.SetActive(true);
             activeCandleDialog.SetBooleanVariable("activeCandleDialog", true);
         }
+        if(gameTag == "Petunjuk")
+        {
+            petunjukDialog.gameObject.SetActive(true);
+            petunjukDialog.SetBooleanVariable("petunjukDialog", true);
+        }
 
         GameManager.instance.isGameRunning = false;
     }
 
     public bool DialogIsActive()
     {
-        if (startDialog.GetBooleanVariable("firstStory"))
-            return true;
-        else if (senterDialog.GetBooleanVariable("flashlightDialog"))
-            return true;
-        else if (bookDialog.GetBooleanVariable("bookDialog"))
+        if (bookDialog.GetBooleanVariable("bookDialog"))
             return true;
         else if (diaryDialog.GetBooleanVariable("diaryDialog"))
             return true;
@@ -65,6 +67,12 @@ public class DialogManager : MonoBehaviour
         else if (candleDialog.GetBooleanVariable("candleDialog"))
             return true;
         else if (activeCandleDialog.GetBooleanVariable("activeCandleDialog"))
+            return true;
+        else if (startDialog.GetBooleanVariable("firstStory"))
+            return true;
+        else if (senterDialog.GetBooleanVariable("flashlightDialog"))
+            return true;
+        else if (petunjukDialog.GetBooleanVariable("petunjukDialog"))
             return true;
 
         return false;

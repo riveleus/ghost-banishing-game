@@ -25,11 +25,13 @@ public class Interactable : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.name == "Player"){
             touched = true;
+            UIManager.instance.ShowObjectIndicator(this.name);
         }
     }
     private void OnCollisionExit2D(Collision2D other) {
         if(other.gameObject.name=="Player"){
             touched = false;
+            UIManager.instance.HideObjectIndicator();
         }
     }
 

@@ -97,9 +97,10 @@ public class Player : MonoBehaviour
 
     public void StopMovement()
     {
-        canMove = false;
+        movement = Vector2.zero;
         rb.velocity = Vector2.zero;
         anim.SetBool("Walking", false);
+        canMove = false;
     }
 
     public void AllowMovement()
@@ -120,5 +121,12 @@ public class Player : MonoBehaviour
             currentCandle = null;
             AllowMovement();
         }
+    }
+
+    public void Reset()
+    {
+        StopRollingCandle();
+        flashlight.Reset();
+        sanity = 100;
     }
 }

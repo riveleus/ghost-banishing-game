@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     public Slider musicVolSlider, sfxVolSlider;
     [SerializeField] Image sanityBar;
     [SerializeField] Slider candleFillBar;
+    [SerializeField] Text objectIndicator;
 
     private void Awake()
     {
@@ -115,5 +116,16 @@ public class UIManager : MonoBehaviour
         gameOverScreen.SetActive(false);
         Time.timeScale = 1f;
         StartCoroutine(GameManager.instance.RespawnCo());
+    }
+
+    public void ShowObjectIndicator(string objName)
+    {
+        objectIndicator.text = objName;
+        objectIndicator.gameObject.SetActive(true);
+    }
+
+    public void HideObjectIndicator()
+    {
+        objectIndicator.gameObject.SetActive(false);
     }
 }

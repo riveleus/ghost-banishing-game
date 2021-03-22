@@ -86,7 +86,7 @@ public class Ghost : MonoBehaviour
     {
         if(GameManager.instance.isStopped())
             return;
-
+             
         if (!isBinded)
         {
             if (Vector2.Distance(transform.position, player.transform.position) > 4.7f)

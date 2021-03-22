@@ -6,6 +6,7 @@ using Fungus;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    private bool gameEnded;
     public bool isGameRunning;
     private bool isPaused;
     [SerializeField] Player player;
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
                 dialog.photoDialog.gameObject.SetActive(false);
                 dialog.candleDialog.gameObject.SetActive(false);
                 dialog.activeCandleDialog.gameObject.SetActive(false);
+                dialog.petunjukDialog.gameObject.SetActive(false);
                 isGameRunning = true;
             }
         }
@@ -94,7 +96,7 @@ public class GameManager : MonoBehaviour
 
     public bool isStopped()
     {
-        if(!isGameRunning || isPaused)
+        if(!isGameRunning || isPaused || gameEnded)
             return true;
 
         return false;
@@ -103,22 +105,23 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Time.timeScale = 0f;
-        isGameRunning = false;
+        gameEnded = true;
         UIManager.instance.gameOverScreen.SetActive(true);
     }
 
     public void Win()
     {
         Time.timeScale = 0f;
-        isGameRunning = false;
+        gameEnded = true;
         UIManager.instance.winScreen.SetActive(true);
     }
 
     public IEnumerator RespawnCo()
     {
         player.gameObject.SetActive(false);
-
+        UIManager.instance.InitializeSanityBar();
         UIManager.instance.fadeToBlack = true;
+        player.Reset();
 
         yield return new WaitForSeconds(2f);
 
@@ -126,8 +129,16 @@ public class GameManager : MonoBehaviour
 
         player.transform.position = respawnPosition;
 
-        isGameRunning = false;
+        gameEnded = false;
 
         player.gameObject.SetActive(true);
+    }
+
+    void RemoveAllCandles()
+    {
+        for(int i = 0; i < candles.Length; i++)
+        {
+            candles[i].TurnOff();
+        }
     }
 }

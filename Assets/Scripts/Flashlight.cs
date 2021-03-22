@@ -57,4 +57,10 @@ public class Flashlight : MonoBehaviour
         float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
         transform.eulerAngles = new Vector3(0, 0, angle);
     }
+
+    public void Reset()
+    {
+        batteryCount = 5;
+        currentAmount = 25;
+    }
 }
